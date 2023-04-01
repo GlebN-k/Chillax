@@ -1,14 +1,11 @@
-
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import { onSnapshot, doc } from "firebase/firestore";
 // import { db } from "../../firebase";
 // import { UserAuth } from "../../Context/AuthContext";
 
-const initialState = []
+const initialState = [];
 
 // const {user} = UserAuth()
-
 
 // export const fetchMovies = createAsyncThunk("favouriteMovies/fetchMovies", async() => {
 //     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
@@ -16,31 +13,38 @@ const initialState = []
 //     })
 // })
 
-const favouriteMovies = createSlice ({
-    name: "favouriteMovies",
-    initialState,
-    reducers: {
-        addFavouriteMovie: (state, action) => {
-            state.push(action.payload)
-        },
-        deleteFavouriteMovie: (state, action) => {
-            state.filter(movie => movie.id !== action.payload.id)
-        },
-        addMoviesFromFirestore: (state, action) => {
-            state.push(...action.payload)
-        }
+const favouriteMovies = createSlice({
+  name: "favouriteMovies",
+  initialState,
+  reducers: {
+    addFavouriteMovie: (state, action) => {
+      state.push(action.payload);
     },
-    // extraReducers: {
-    //     [fetchMovies.fulfilled]: (state, action) => {
-    //         state = action.payload
-    //     }
-    // }
-})
+    deleteFavouriteMovie: (state, action) => {
+      state.filter((movie) => movie.id !== action.payload.id);
+    },
+    addMoviesFromFirestore: (state, action) => {
+      state.push(...action.payload)
+    },
+    clearAllFavourites: (state) => {
+      return []
+    }
+  },
+  // extraReducers: {
+  //     [fetchMovies.fulfilled]: (state, action) => {
+  //         state = action.payload
+  //     }
+  // }
+});
 
-export const {addFavouriteMovie, deleteFavouriteMovie, addMoviesFromFirestore } = favouriteMovies.actions
+export const {
+  addFavouriteMovie,
+  deleteFavouriteMovie,
+  addMoviesFromFirestore,
+  clearAllFavourites
+} = favouriteMovies.actions;
 
-export default favouriteMovies.reducer
-
+export default favouriteMovies.reducer;
 
 // import { createSlice } from "@reduxjs/toolkit";
 // import { getDocs, collection } from "firebase/firestore";

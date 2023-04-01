@@ -4,28 +4,19 @@ import { Link } from "react-router-dom";
 import { setMovieId } from "../../features/chosenMovie/ChosenMovieSlice";
 import Movie from "./Movie";
 
-const Row = ({ title, onData, movies }) => {
+const MoviesRow = ({ title, onData, movies }) => {
   const dispatch = useDispatch();
   const favouriteMovies = useSelector((state) => state.favouriteMovies).map(
     (item) => item.id
   );
   const watchLaterMovies = useSelector(state => state.watchLater).map(item => item.id)
 
-  const handleClick =() => {
-    window.scrollTo({
-      top:0
-    })
-  }
-
   return (
     <>
-      <Link to={`./movies/${title}`} className="text-white relative flex items-center hover:underline pb-1">
-        <h2 className="mr-2" onClick={() => handleClick()}>{title}</h2>
-        <span className="inline-block w-3 h-3 border-t border-r border-white transform rotate-45 transition duration-300 ease-in-out opacity-0 hover:opacity-100"></span>
-      </Link>
-      <div className="flex">
+
+      <div className="flex flex-col">
         <div
-          className="text-white w-full h-full whitespace-nowrap overflow-x-scroll scroll-smooth scrollbar-hide relative"
+          className="text-white w-full h-full relative"
           id={"slider"}
         >
           {movies.map((movie) => {
@@ -54,7 +45,7 @@ const Row = ({ title, onData, movies }) => {
   );
 };
 
-export default Row;
+export default MoviesRow;
 
 
 // import React, { useEffect, useState } from "react";

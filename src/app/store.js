@@ -13,7 +13,7 @@ export const store = configureStore({
         movieId: setMovieId,
         favouriteMovies: favouriteMovies,
         popularMovies: getPopularMovieAPISlice,
-        topMovies: topMoviesSlice,
+        topRatedMovies: topMoviesSlice,
         upComingMovies: upComingSlice,
         trendingMovies: trendingMoviesSlice,
     }

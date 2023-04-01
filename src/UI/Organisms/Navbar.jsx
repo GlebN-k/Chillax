@@ -4,7 +4,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxMagnifyingGlass } from "react-icons/rx";
 // import { Switch } from "@material-tailwind/react";
 // import ControlledSwitches from "../Atoms/Switch";
-
+import { useDispatch } from "react-redux";
+import { clearAllFavourites } from "../../features/favouriteMovies/favouriteMovies";
 import { UserAuth } from "../../Context/AuthContext";
 import SideBar from "../Molecules/SideBar";
 import Logo from "../Atoms/Logo";
@@ -16,17 +17,21 @@ const Navbar = () => {
   // const [xxx, setXxx] = useState(true);
   const [loupe, setLoupe] = useState(false);
   const [isSideBar, setIsSideBar] = useState(false);
+  const dispatch = useDispatch()
 
   console.log(user);
 
   const handleLogOut = async () => {
     try {
       await logOut();
+      dispatch(clearAllFavourites())
+      console.log("yyeess")
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const handleClick = () => {
     setIsSideBar(false);

@@ -7,7 +7,8 @@ const initialState = {
 }
 
 const getPopularMovieAPISlice = createSlice({
-    name: "getPopularMovies",
+    name: "Popular",
+    // name: "getPopularMovies",
     initialState,
     reducers: {
         getPopularMoviesStart: (state) => {

@@ -33,7 +33,7 @@ const Account = () => {
   return (
     <>
       <div className="max-w-screen-lg m-auto">
-        <h2 className="text-white text-4xl pt-20 pb-6">My list</h2>
+        <h2 className="text-white text-4xl pt-20 pb-6">My saved movies</h2>
         <div className="flex flex-col gap-3">
           {movies.length ? (
             movies.map((item) => <AccountMovie movie={item} />)

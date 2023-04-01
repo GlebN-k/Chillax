@@ -4,7 +4,7 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { async } from "@firebase/util";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { UserAuth } from "../../Context/AuthContext";
 import { db } from "../../firebase";
@@ -14,14 +14,19 @@ import {
 } from "../../features/watchLaterMovies/watchLaterSlice";
 import { addFavouriteMovie } from "../../features/favouriteMovies/favouriteMovies";
 
-const Movie = ({ movie, onClick }) => {
-  const [like, setLike] = useState(false);
-  const [watchLater, setWatchLater] = useState(false);
+const Movie = ({ movie, onClick, favourite, savedMovie }) => {
+  const [like, setLike] = useState(favourite);
+  const [watchLater, setWatchLater] = useState(savedMovie);
   const [saved, setSaved] = useState(false);
   const { user } = UserAuth();
   const dispatch = useDispatch();
-
+  // const favouriteMovies = useSelector(state => state.favouriteMovies).map(item => item.id)
   const movieId = doc(db, "users", `${user?.email}`);
+
+// if (favouriteMovies.includes(movie.id)) {
+//   // console.log("da blyat")
+//   setLike(true)
+// } 
 
   const saveShow = async () => {
     if (user?.email) {
@@ -40,12 +45,28 @@ const Movie = ({ movie, onClick }) => {
     }
   };
 
+  const saveWatchLaterFirebase = async() => {
+    if(user?.email) {
+    await updateDoc(movieId, {
+      watchLaterMovies: arrayUnion({
+        id: movie.id,
+          title: movie.title || movie.name,
+          backdrop_path: movie.backdrop_path,
+          overview: movie.overview,
+      })
+      })} else {
+        alert("you need to log in first");
+      }
+    } 
+  
+
   // const saveWatchMovieLater
 
   const watchMovieLater = (e) => {
     // e.preventDefault()
     // e.stopImmediatePropagation()
     if (user?.email) {
+      saveWatchLaterFirebase()
       console.log("watch movie later");
       dispatch(
         addMovie({
