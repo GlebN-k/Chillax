@@ -3,11 +3,11 @@ import React, { useState } from "react";
 // import { MdOutlineWatchLater } from "react-icons/md";
 // import { TiTick } from "react-icons/ti";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { arrayUnion, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 // import { async } from "@firebase/util";
 import { Link } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserAuth } from "../../Context/AuthContext";
 import { db } from "../../firebase";
 import {
@@ -18,14 +18,17 @@ import { addFavouriteMovie } from "../../features/favouriteMovies/favouriteMovie
 import BtnWatch from "../Atoms/BtnWatch";
 import BtnDetails from "../Atoms/BtnDetails";
 import { fetchPopularMovies } from "../../features/getPopularMoviesAPI/getPopuparMoviesSlice";
-import Movie from "./Movie";
+import { deleteFavouriteMovie } from "../../features/favouriteMovies/favouriteMovies";
+// import Movie from "./Movie";
 
-const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
+const AccountMovies = ({ movie, handleClickMovie, onClick, section }) => {
   const [like, setLike] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
   const [saved, setSaved] = useState(false);
   const { user } = UserAuth();
   const dispatch = useDispatch();
+  const watchLaterArray = useSelector((state) => state.watchLater);
+  const favouriteMoviesArray = useSelector(state => state.favouriteMovies)
 
   const movieId = doc(db, "users", `${user?.email}`);
 
@@ -45,17 +48,49 @@ const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
     }
   };
 
-  const deleteMovieFromFirestore = async () => {
-    if (user?.email) {
-      await deleteDoc(doc(db, "watchLaterMovies", `${movie.id}`));
-      dispatch(deleteMovie({ id: movie.id }));
-    } else {
-      alert("you need to log in first");
+  const movieRef = doc(db, "users", `${user?.email}`)
+  const deleteSavedMovieFirestore = async (movieId) => {
+    dispatch(deleteMovie({ id: movie.id }));
+    try {
+      console.log("movviiiiee", movieId);
+      console.log(watchLaterArray)
+      const results = watchLaterArray.filter(item => item.id !== movieId)
+      await updateDoc(movieRef, {
+        watchLaterMovies: results
+      })
+    } catch (error) {
+      alert('error', error)
     }
-  };
+  }
+
+  const deleteFavouriteMovieFirestore = async (movieId) => {
+    dispatch(deleteFavouriteMovie({ id: movie.id }));
+    try {
+      console.log("movviiiiee", movieId);
+      console.log(favouriteMoviesArray)
+      const results = favouriteMoviesArray.filter(item => item.id !== movieId)
+      await updateDoc(movieRef, {
+        savedShows: results
+      })
+    } catch (error) {
+      alert('error', error)
+    }
+
+  }
+
+  // const deleteMovieFromFirestore = async () => {
+  //   if (user?.email) {
+  //     await deleteDoc(doc(db, "users", `${user?.email}`, "watchLaterMovies", `${movie.id}`));
+  //     dispatch(deleteMovie({ id: movie.id }));
+  //   } else {
+  //     alert("you need to log in first");
+  //   }
+  // };
   // const deleteMovieFromWatchLater = () => {
   //   dispatch(deleteMovie({ id: movie.id }));
   // };
+
+
 
   const addFavMovie = () => {
     dispatch(
@@ -72,7 +107,13 @@ const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
     addFavMovie();
   };
 
-
+const deleteMyMovie = (section, movieId) => {
+  if(section === 'saved') {
+    deleteSavedMovieFirestore(movieId)
+  } else {
+    deleteFavouriteMovieFirestore(movieId)
+  }
+}
 
   return (
     <>
@@ -114,7 +155,8 @@ const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
               <BtnDetails />
             </Link>
           </div>
-            <AiOutlineCloseCircle className="h-[2em] w-[2em] cursor-pointer hover:bg-gray-500 rounded-full"  onClick={() => deleteMovieFromFirestore()}/>
+            <AiOutlineCloseCircle className="h-[2em] w-[2em] cursor-pointer hover:bg-gray-500 rounded-full"  onClick={() => deleteMyMovie(section, movie.id)}/>
+            {/* <AiOutlineCloseCircle className="h-[2em] w-[2em] cursor-pointer hover:bg-gray-500 rounded-full"  onClick={() => deleteFavMovieFirestore(movie.id)}/> */}
           </div>
         </div>
       </div>

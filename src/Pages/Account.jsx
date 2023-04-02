@@ -36,7 +36,7 @@ const Account = () => {
         <h2 className="text-white text-4xl pt-20 pb-6">My saved movies</h2>
         <div className="flex flex-col gap-3">
           {movies.length ? (
-            movies.map((item) => <AccountMovie movie={item} />)
+            movies.map((item) => <AccountMovie section="saved" movie={item} />)
           ) : (
             <p className="text-white">No movies here yet...</p>
           )}
@@ -53,7 +53,7 @@ const Account = () => {
         </h2>
         <div className="flex flex-col gap-3">
           {favouriteMovies.length ? (
-            favouriteMovies.map((item) => <AccountMovie movie={item} />)
+            favouriteMovies.map((item) => <AccountMovie section="favourites" movie={item} />)
           ) : (
             <p className="text-white">No movies here yet...</p>
           )}
