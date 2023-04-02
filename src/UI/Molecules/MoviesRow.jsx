@@ -9,19 +9,17 @@ const MoviesRow = ({ title, onData, movies }) => {
   const favouriteMovies = useSelector((state) => state.favouriteMovies).map(
     (item) => item.id
   );
-  const watchLaterMovies = useSelector(state => state.watchLater).map(item => item.id)
+  const watchLaterMovies = useSelector((state) => state.watchLater).map(
+    (item) => item.id
+  );
 
   return (
     <>
-
       <div className="flex flex-col">
-        <div
-          className="text-white w-full h-full relative"
-          id={"slider"}
-        >
+        <div className="text-white w-full h-full relative" id={"slider"}>
           {movies.map((movie) => {
             let like = false;
-            let saved = false; 
+            let saved = false;
             if (favouriteMovies.includes(movie.id)) {
               like = true;
             }
@@ -30,13 +28,15 @@ const MoviesRow = ({ title, onData, movies }) => {
             }
 
             return (
-              <Movie
-                movie={movie}
-                favourite={like}
-                savedMovie={saved}
-                key={`${movie?.id}`}
-                onClick={() => dispatch(setMovieId(movie.id))}
-              />
+              <Link to={`/${movie.id}`}>
+                <Movie
+                  movie={movie}
+                  favourite={like}
+                  savedMovie={saved}
+                  key={`${movie?.id}`}
+                  onClick={() => dispatch(setMovieId(movie.id))}
+                />
+              </Link>
             );
           })}
         </div>
@@ -46,7 +46,6 @@ const MoviesRow = ({ title, onData, movies }) => {
 };
 
 export default MoviesRow;
-
 
 // import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
@@ -80,7 +79,7 @@ export default MoviesRow;
 //         >
 //           {movies.map((movie) => {
 //             let like = false;
-//             let saved = false; 
+//             let saved = false;
 //             if (favouriteMovies.includes(movie.id)) {
 //               like = true;
 //             }

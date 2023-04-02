@@ -93,10 +93,10 @@ const ChosenMovie = ({ movie, handleClickMovie }) => {
     <div className="relative">
       <div className="relative h-[100px] w-full z-10"></div>
       {/* {backgroundOnWatching && <div className="w-[100%] h-[100%] bg-black bg-opacity-50"></div>} */}
-      <div className=" relative  flex justify-center z-10">
+      <div className=" relative  flex justify-center z-10 bg-black bg-opacity-30 w-fit m-auto rounded">
         {/* <div className="z-10  flex justify-center top-[150px] left-[20%]"> */}
         <img
-          className="w-[400px] h-[600px] "
+          className="w-[400px] h-[600px] rounded"
           src={`https://image.tmdb.org/t/p/original${mainMovie?.poster_path}`}
           alt=""
         />

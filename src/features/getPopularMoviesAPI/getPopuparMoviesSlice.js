@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     movies: [],
     isLoading: false,
+    total_pages:100,
+    total_results: 20000,
     error: null
 }
 
@@ -25,11 +27,11 @@ const getPopularMovieAPISlice = createSlice({
     }
 })
 
-export const fetchPopularMovies = () => async (dispatch) => {
+export const fetchPopularMovies = (page = 1) => async (dispatch) => {
     dispatch(getPopularMoviesStart())
   
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=acf837ccca44b10855aa8ef467ec0211&language=en-US&page=1`)
+      const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=acf837ccca44b10855aa8ef467ec0211&language=en-US&page=${page}`)
       const data = await response.json()
       dispatch(getPopularMoviesSuccess(data))
     } catch (error) {

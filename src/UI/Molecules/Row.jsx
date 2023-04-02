@@ -19,8 +19,8 @@ const Row = ({ title, onData, movies }) => {
 
   return (
     <>
-      <Link to={`./movies/${title}`} className="text-white relative flex items-center hover:underline pb-1">
-        <h2 className="mr-2" onClick={() => handleClick()}>{title}</h2>
+      <Link to={`./movies/${title}`} className="text-white relative flex items-center hover:text-amber-500 pb-1">
+        <h2 className="mr-2 mt-2 pl-5" onClick={() => handleClick()}>{title}</h2>
         <span className="inline-block w-3 h-3 border-t border-r border-white transform rotate-45 transition duration-300 ease-in-out opacity-0 hover:opacity-100"></span>
       </Link>
       <div className="flex">

@@ -12,10 +12,13 @@ export const watchLaterSlice = createSlice ({
         deleteMovie: (state, action) => {
             let newArr = state.filter(movie => movie.id !== action.payload.id)
             return newArr
+        },
+        getMoviesFromFirestore: (state, action) => {
+            return action.payload
         }
     }
 })
 
-export const {addMovie, deleteMovie} = watchLaterSlice.actions
+export const {addMovie, deleteMovie, getMoviesFromFirestore} = watchLaterSlice.actions
 
 export default watchLaterSlice.reducer

@@ -107,10 +107,10 @@ const Main = ({ unitedMoviesArr }) => {
 
   return (
     <div className="w-full h-[550px] text-white">
-      <div className="w-full h-[500px]">
-        <div className="absolute w-full h-[500px] bg-gradient-to-r from-black"></div>
+      <div className="w-full h-[550px]">
+        <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
         <img
-          className="w-full h-[500px] object-cover"
+          className="w-full h-[550px] object-cover"
           src={`https://image.tmdb.org/t/p/original${mainMovie?.backdrop_path}`}
           alt=""
         />
@@ -128,6 +128,7 @@ const Main = ({ unitedMoviesArr }) => {
           </p>
           <div className="w-[300px] flex justify-between my-8">
             <BtnWatch onClick={handleClick} />
+            
             <Link to={`/${mainMovie.id}`}>
               <BtnDetails />
             </Link>

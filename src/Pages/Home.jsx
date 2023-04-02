@@ -11,12 +11,27 @@ import { onSnapshot, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { UserAuth } from "../Context/AuthContext";
 import { addMoviesFromFirestore } from "../features/favouriteMovies/favouriteMovies";
+import { getMoviesFromFirestore } from "../features/watchLaterMovies/watchLaterSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const myMovies = useSelector(state => state.favouriteMovies)
+  const myMovies = useSelector((state) => state.favouriteMovies);
 
   const { user } = UserAuth();
+
+  function getWatchLaterMoviesFirestore() {
+    return new Promise((resolve, reject) => {
+      getDoc(doc(db, "users", `${user?.email}`)).then((res) =>
+        resolve(res.data().watchLaterMovies).catch((res) => reject(res))
+      );
+    });
+  }
+
+  useEffect(() => {
+    getWatchLaterMoviesFirestore(user?.email)
+      .then((res) => dispatch(getMoviesFromFirestore(res)))
+      .catch((error) => console.log(error));
+  }, [user?.email]);
 
   // const memoizedUser = useMemo(() => {
   //   return user;
@@ -52,12 +67,12 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if(myMovies.length > 0) return
+    if (myMovies.length > 0) return;
 
     getSavedShows(user?.email)
       .then((res) => {
         dispatch(addMoviesFromFirestore(res));
-        console.log('i made new action');
+        console.log("i made new action");
       })
       .catch((error) => console.log(error));
   }, [user?.email]);
@@ -74,7 +89,6 @@ const Home = () => {
 };
 
 export default Home;
-
 
 // import React, { useState, useEffect, useMemo } from "react";
 // // import requests from "../Requests";
@@ -152,8 +166,6 @@ export default Home;
 //         });
 //     });
 //   }
-
-
 
 //   useEffect(() => {
 //     getSavedShows(user?.email)

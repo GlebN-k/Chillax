@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     movies: [],
     isLoading: false,
+    total_pages:100,
+    total_results: 20000,
     error: null
 }
 

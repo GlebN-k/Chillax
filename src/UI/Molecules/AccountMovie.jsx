@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import { MdOutlineWatchLater } from "react-icons/md";
 // import { TiTick } from "react-icons/ti";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc, deleteDoc } from "firebase/firestore";
 // import { async } from "@firebase/util";
 import { Link } from "react-router-dom";
 
@@ -45,10 +45,17 @@ const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
     }
   };
 
-
-  const deleteMovieFromWatchLater = () => {
-    dispatch(deleteMovie({ id: movie.id }));
+  const deleteMovieFromFirestore = async () => {
+    if (user?.email) {
+      await deleteDoc(doc(db, "watchLaterMovies", `${movie.id}`));
+      dispatch(deleteMovie({ id: movie.id }));
+    } else {
+      alert("you need to log in first");
+    }
   };
+  // const deleteMovieFromWatchLater = () => {
+  //   dispatch(deleteMovie({ id: movie.id }));
+  // };
 
   const addFavMovie = () => {
     dispatch(
@@ -107,7 +114,7 @@ const AccountMovies = ({ movie, handleClickMovie, onClick }) => {
               <BtnDetails />
             </Link>
           </div>
-            <AiOutlineCloseCircle className="h-[2em] w-[2em] cursor-pointer hover:bg-gray-500 rounded-full"  onClick={() => deleteMovieFromWatchLater()}/>
+            <AiOutlineCloseCircle className="h-[2em] w-[2em] cursor-pointer hover:bg-gray-500 rounded-full"  onClick={() => deleteMovieFromFirestore()}/>
           </div>
         </div>
       </div>
