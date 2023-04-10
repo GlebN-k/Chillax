@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Chillax/static/css/main.1eb891c6.css",
-    "main.js": "/Chillax/static/js/main.af746914.js",
+    "main.js": "/Chillax/static/js/main.52b42cd5.js",
     "reactPlayerYouTube.js": "/Chillax/static/js/reactPlayerYouTube.7ff30e81.chunk.js",
     "reactPlayerSoundCloud.js": "/Chillax/static/js/reactPlayerSoundCloud.bf26d88d.chunk.js",
     "reactPlayerVimeo.js": "/Chillax/static/js/reactPlayerVimeo.e8f1e146.chunk.js",
@@ -17,7 +17,7 @@
     "reactPlayerPreview.js": "/Chillax/static/js/reactPlayerPreview.8b803d4f.chunk.js",
     "index.html": "/Chillax/index.html",
     "main.1eb891c6.css.map": "/Chillax/static/css/main.1eb891c6.css.map",
-    "main.af746914.js.map": "/Chillax/static/js/main.af746914.js.map",
+    "main.52b42cd5.js.map": "/Chillax/static/js/main.52b42cd5.js.map",
     "reactPlayerYouTube.7ff30e81.chunk.js.map": "/Chillax/static/js/reactPlayerYouTube.7ff30e81.chunk.js.map",
     "reactPlayerSoundCloud.bf26d88d.chunk.js.map": "/Chillax/static/js/reactPlayerSoundCloud.bf26d88d.chunk.js.map",
     "reactPlayerVimeo.e8f1e146.chunk.js.map": "/Chillax/static/js/reactPlayerVimeo.e8f1e146.chunk.js.map",
@@ -34,6 +34,6 @@
   },
   "entrypoints": [
     "static/css/main.1eb891c6.css",
-    "static/js/main.af746914.js"
+    "static/js/main.52b42cd5.js"
   ]
 }
