@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MoviesRow from "../UI/Molecules/MoviesRow";
 import Pagination from "../UI/Molecules/Pagination";
-import Row from "../UI/Molecules/Row";
 
 const MoviesPage = () => {
   let { title } = useParams();
@@ -11,11 +10,12 @@ const MoviesPage = () => {
   title = title.toLowerCase()+ "Movies";
   let name = title
 
+
   if (title.includes(" ")) {
-    name = killSpaces(title);
+    name = deleteSpaces(title);
   }
 
-  function killSpaces(str) {
+  function deleteSpaces(str) {
     let newStr = "";
     let result = "";
     for (let i = 0; i < str.length; i++) {
@@ -33,20 +33,15 @@ const MoviesPage = () => {
     return result;
   }
 
-  // const name = useParams().title.toLowerCase() + "Movies";
   const movies = useSelector((state) => state[name]);
 
-  //   const topMovies = useSelector((state) => state.topMovies.movies);
-  //   const popularMovies = useSelector((state) => state.popularMovies.movies);
-  //   const upComingMovies = useSelector((state) => state.upComingMovies.movies);
-  //   const trendingMovies = useSelector((state) => state.trendingMovies.movies);
 
   return (
-    <div className=" mx-auto w-[80%]">
-      <div className="relative h-[100px] w-full z-10"></div>
-      <h2 className="text-white text-2xl">{movieGroupName} movies</h2>
-      <MoviesRow title={name} movies={movies.movies} />
-      <Pagination total_pages={movies.total_pages} />
+    <div className="mx-auto w-[80%]">
+      <div className="relative h-[100px] w-full z-10 "></div>
+      <h2 className="text-white text-2xl">{movieGroupName}</h2>
+      <MoviesRow title={name} movies={movies?.movies || movies?.cartoons} />
+      <Pagination total_pages={movies?.total_pages} />
     </div>
   );
 };

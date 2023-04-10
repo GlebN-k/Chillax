@@ -18,6 +18,7 @@ return (
    title="Facebook"
    onMouseOver={handleMouseOver}
    onMouseOut={handleMouseOut}
+   target="blank"
  >
 <svg
      width="40"

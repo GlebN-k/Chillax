@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import requests from "../Requests";
+import requests from "../requests";
 
-const Main = ({ xxx }) => {
+const LogBackground = () => {
   const [movies, setMovies] = useState([]);
   const [mainMovie, setMainMovie] = useState(null);
-
-//   useEffect(() => {
-//     // console.log(xxx)
-//     const newMovie = movies.find((el) => el.title === xxx);
-//     // console.log(movies)
-//     // console.log(newMovie)
-//     setMainMovie(newMovie);
-//     // console.log(xxx)
-//   }, [xxx]);
-//   // console.log(xxx)
 
   useEffect(() => {
     fetch(requests.requestPopular)
@@ -36,7 +26,7 @@ const Main = ({ xxx }) => {
   }
 
   return (
-    <div className="w-full h-[100vh]]">
+    <div className="w-full h-[100vh]">
       <div className="absolute w-full h-[100vh] bg-gradient-to-r from-black"></div>
       <img
         className="w-full h-[100vh] object-cover"
@@ -47,4 +37,4 @@ const Main = ({ xxx }) => {
   );
 };
 
-export default Main;
+export default LogBackground;

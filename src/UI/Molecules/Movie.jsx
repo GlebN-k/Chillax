@@ -3,10 +3,9 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { UserAuth } from "../../Context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 import { db } from "../../firebase";
 import {
   addMovie,
@@ -17,27 +16,22 @@ import { addFavouriteMovie } from "../../features/favouriteMovies/favouriteMovie
 const Movie = ({ movie, onClick, favourite, savedMovie }) => {
   const [like, setLike] = useState(favourite);
   const [watchLater, setWatchLater] = useState(savedMovie);
-  const [saved, setSaved] = useState(false);
+  // const [saved, setSaved] = useState(false);
   const { user } = UserAuth();
   const dispatch = useDispatch();
-  // const favouriteMovies = useSelector(state => state.favouriteMovies).map(item => item.id)
   const movieId = doc(db, "users", `${user?.email}`);
-
-// if (favouriteMovies.includes(movie.id)) {
-//   // console.log("da blyat")
-//   setLike(true)
-// } 
 
   const saveShow = async () => {
     if (user?.email) {
       setLike(!like);
-      setSaved(true);
+      // setSaved(true);
       await updateDoc(movieId, {
         savedShows: arrayUnion({
           id: movie.id,
           title: movie.title || movie.name,
           backdrop_path: movie.backdrop_path,
           overview: movie.overview,
+          type: `${movie.hasOwnProperty("name") ? "tv" : "movie"}`,
         }),
       });
     } else {
@@ -45,28 +39,27 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
     }
   };
 
-  const saveWatchLaterFirebase = async() => {
-    if(user?.email) {
-    await updateDoc(movieId, {
-      watchLaterMovies: arrayUnion({
-        id: movie.id,
+  const saveWatchLaterFirebase = async () => {
+    if (user?.email) {
+      await updateDoc(movieId, {
+        watchLaterMovies: arrayUnion({
+          id: movie.id,
           title: movie.title || movie.name,
           backdrop_path: movie.backdrop_path,
           overview: movie.overview,
-      })
-      })} else {
-        alert("you need to log in first");
-      }
-    } 
-  
-
-  // const saveWatchMovieLater
+          type: `${movie.hasOwnProperty("name") ? "tv" : "movie"}`,
+        }),
+      });
+    } else {
+      alert("you need to log in first");
+    }
+  };
 
   const watchMovieLater = (e) => {
     // e.preventDefault()
     // e.stopImmediatePropagation()
     if (user?.email) {
-      saveWatchLaterFirebase()
+      saveWatchLaterFirebase();
       console.log("watch movie later");
       dispatch(
         addMovie({
@@ -74,6 +67,7 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
           title: movie.title || movie.name,
           backdrop_path: movie.backdrop_path,
           overview: movie.overview,
+          type: `${movie.hasOwnProperty("name") ? "tv" : "movie"}`,
         })
       );
       setWatchLater(!watchLater);
@@ -96,6 +90,7 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
         title: movie.title || movie.name,
         backdrop_path: movie.backdrop_path,
         overview: movie.overview,
+        type: `${movie.hasOwnProperty("name") ? "tv" : "movie"}`,
       })
     );
   };
@@ -105,20 +100,26 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
     addFavMovie();
   };
 
-
   return (
     <>
       <div
         onClick={onClick}
-        className="text-white w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
+        className="text-white w-[220px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
       >
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie?.backdrop_path}`}
-          alt={movie?.title || movie?.name}
-        />
-        <div className="w-full h-full absolute top-0 left-0 hover:bg-black/80 opacity-0 hover:opacity-100 text-white flex justify-center items-center text-center">
+        {movie?.backdrop_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie?.backdrop_path}`}
+            alt={movie?.title || movie?.name}
+          />
+        ) : (
+          <img className="h-[148px] justify-center m-auto"
+            src={`https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png`}
+            alt={movie?.title || movie?.name}
+          />
+        )}
+        <div className="w-full h-full absolute top-0 left-0 hover:bg-black/80 opacity-0 hover:opacity-100 text-white flex justify-center items-center text-center whitespace-pre-wrap   ">
           {movie?.title || movie?.name}
-          <div className="absolute top-[10px] left-[10px] flex gap-2" >
+          <div className="absolute top-[10px] left-[10px] flex gap-2">
             {like ? (
               <AiFillStar />
             ) : (

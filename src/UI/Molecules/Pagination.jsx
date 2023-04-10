@@ -5,10 +5,18 @@ import { fetchTopMovies } from "../../features/topMoviesSlice/getTopMoviesThunk"
 import { fetchPopularMovies } from "../../features/getPopularMoviesAPI/getPopuparMoviesSlice";
 import { fetchTrendingMovies } from "../../features/trendingMovies/getTrendingMoviesThunk";
 import { fetchUpComingMovies } from "../../features/upComingMovies/getUpComingMoviesThunk";
+import { fetchSearchMovies } from "../../features/searchMovies/searchMoviesThunk";
+import { useParams } from "react-router-dom";
+import { fetchCartoons } from "../../features/cartoons/cartoonsThunk";
+import { fetchSeries } from "../../features/series/seriesThunk";
+import { fetchNetflixSeries } from "../../features/netflixSeries/netflixSeriesThunk";
 
 const Pagination = ({ total_pages }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
+  const value = useParams().value
+
+  // console.log("param", value)
 
   const handleClick = (page = 1) => {
     setCurrentPage(page);
@@ -16,6 +24,10 @@ const Pagination = ({ total_pages }) => {
     dispatch(fetchPopularMovies(page));
     dispatch(fetchTrendingMovies(page));
     dispatch(fetchUpComingMovies(page))
+    dispatch(fetchSearchMovies(value, page))
+    dispatch(fetchCartoons(page))
+    dispatch(fetchSeries(page))
+    dispatch(fetchNetflixSeries(page))
   };
 
   const renderPageNumbers = () => {

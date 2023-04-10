@@ -1,29 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { AuthContext } from "../Context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
-// import { fetchMovies } from "../features/favouriteMovies/favouriteMovies";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-
-// import { useDispatch } from "react-redux";
-import LogPhoto from "./LogPhoto";
+import LogBackground from "./LogBackground";
 
 const LogIn = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null)
-  const { user, logIn } = useContext(AuthContext);
+  const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  // const dispatch = useDispatch();
-
-  // const fetchMovies = createAsyncThunk("favouriteMovies/fetchMovies", async() => {
-  //       onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-  //           return doc.data().savedShows
-  //       })
-  //   })
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,17 +23,10 @@ const LogIn = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // При кожній зміні user, ми будемо виконувати запит до Firestore.
-  //   if (user) {
-  //     dispatch(fetchMovies());
-  //   }
-  // }, [user]);
-
   return (
     <div className="h-[100vh] flex justify-center items-center">
       {/* <img className="w-[100vw] h-[100vh]" src={'./dribblshot.png'} alt="nothing" /> */}
-      <LogPhoto />
+      <LogBackground />
       <div className="absolute flex h-[350px] items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-500 bg-opacity-50 rounded-xl  ">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -95,28 +75,8 @@ const LogIn = () => {
             </div>
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                {/* <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a> */}
+              <div className="flex items-center text-white whitespace-pre text-sm">
+                Forgot password? Click <a href="#gmail" className="text-blue-700 underline">here</a>
               </div>
             </div>
 
@@ -135,7 +95,7 @@ const LogIn = () => {
               </button>
             </div>
           </form>
-          {error && <div className="text-red-600 bg-zinc-500">"You entered wrong email or password"</div>}
+          {error && <div className="bg-red-600 text-white rounded py-2 text-center">You entered wrong email or password</div>}
         </div>
       </div>
     </div>

@@ -1,14 +1,13 @@
 import React, { useContext, useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import LogPhoto from "./LogPhoto";
-import { Link, useNavigate } from "react-router-dom";
-// import { UserAuth } from "../Context/AuthContext";
-import { AuthContext } from "../Context/AuthContext";
+import LogBackground from "./LogBackground";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, signUp } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -17,7 +16,6 @@ const Signup = () => {
       await signUp(email, password);
       navigate('/')
     } catch (error) {
-      // setError
       console.log(error);
     }
   };
@@ -25,9 +23,10 @@ const Signup = () => {
   return (
     <div className="h-[100vh] flex justify-center items-center">
       {/* <img className="w-[100vw] h-[100vh]" src={'./dribblshot.png'} alt="nothing" /> */}
-      <LogPhoto />
+      <LogBackground />
       <div className="absolute flex h-[350px] items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-500 bg-opacity-50 rounded-xl  ">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-[316px] max-w-md space-y-8">
+        {/* <div className="w-full max-w-md space-y-8"> */}
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
               Sign up
@@ -75,32 +74,6 @@ const Signup = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                {/* <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a> */}
-              </div>
-            </div>
-
             <div>
               <button
                 type="submit"
@@ -112,7 +85,7 @@ const Signup = () => {
                     aria-hidden="true"
                   />
                 </span>
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>

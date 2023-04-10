@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const InstagramIcon = () => {
   const [fill, setFill] = useState("white");
@@ -11,7 +11,13 @@ const InstagramIcon = () => {
     setFill("white");
   };
   return (
-    <a href="https://www.instagram.com/" title="Instagram" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <a
+      href="https://www.instagram.com/"
+      title="Instagram"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      target="blank"
+    >
       <svg
         width="40"
         height="40"

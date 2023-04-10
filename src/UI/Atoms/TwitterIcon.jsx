@@ -1,18 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const TwitterIcon = () => {
-  const [fill, setFill] = useState('white')
+  const [fill, setFill] = useState("white");
 
   const handleMouseOver = () => {
-    setFill("#fbbf24")
-  }
+    setFill("#fbbf24");
+  };
 
   const handleMouseOut = () => {
-    setFill('white')
-  }
+    setFill("white");
+  };
 
   return (
-    <a href="https://twitter.com/" title="Twitter" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <a
+      href="https://twitter.com/"
+      title="Twitter"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      target="blank"
+    >
       <svg
         width="40"
         height="40"

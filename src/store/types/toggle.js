@@ -1,4 +1,0 @@
-export const TOGGLE_TYPES = {
-    SWITCH_ON:'SWITCH_ON',
-    SWITCH_OFF: 'SWITCH_OFF'
-}
