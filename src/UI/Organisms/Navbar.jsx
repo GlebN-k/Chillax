@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 
 import { clearAllFavourites } from "../../features/favouriteMovies/favouriteMovies";
@@ -37,10 +38,10 @@ const Navbar = () => {
         <div className="flex gap-4 relative">
           {/* <div className="absolute top-4 left-[150px] flex gap-4"> */}
 
-          {/* <GiHamburgerMenu
+          <GiHamburgerMenu
           className="text-white cursor-pointer "
-          onClick={() => setIsSideBar(!isSideBar)}
-        /> */}
+          // onClick={() => setIsSideBar(!isSideBar)}
+        />
 
           <RxMagnifyingGlass
             className="absolute top-[7px] cursor-pointer h-[25px] w-[25px]"
