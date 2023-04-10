@@ -20,7 +20,7 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/Chillax" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/movies/:title" element={<MoviesPage />} />
           <Route path="/:type/:id" element={<ChosenMovie />} />
           <Route />
