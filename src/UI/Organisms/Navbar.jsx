@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+
+
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
-import { GiHamburgerMenu } from "react-icons/gi";
+// import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 
 import { clearAllFavourites } from "../../features/favouriteMovies/favouriteMovies";
@@ -29,6 +31,17 @@ const Navbar = () => {
     setLoupe(false);
   };
 
+  // useEffect(() => {
+  //   const handleClick = (e) => {
+  //     console.log("e", e);
+  //     if(e.target === "path") {
+  //       alert("yes")
+  //     }
+  //     // setLoupe(false)
+  //   }
+  //   document.addEventListener("click", (e) => handleClick(e))
+  // }, [])
+
   return (
     <div className="w-full absolute z-30 text-white flex p-4 justify-between items-center">
       <div className="flex flex-col md:flex-row gap-3">
@@ -38,10 +51,10 @@ const Navbar = () => {
         <div className="flex gap-4 relative">
           {/* <div className="absolute top-4 left-[150px] flex gap-4"> */}
 
-          <GiHamburgerMenu
+          {/* <GiHamburgerMenu
           className="text-white cursor-pointer "
           // onClick={() => setIsSideBar(!isSideBar)}
-        />
+        /> */}
 
           <RxMagnifyingGlass
             className="absolute top-[7px] cursor-pointer h-[25px] w-[25px]"
@@ -54,10 +67,11 @@ const Navbar = () => {
       {user?.email ? (
         <div>
           <Link to="/account">
-            <button className="mr-4 font-bold py-1 px-3 bg-black rounded bg-opacity-20 ">Account</button>
+            <button className="mr-4 font-bold py-1 px-3 bg-black rounded bg-opacity-20 hover:bg-white hover:text-black">Account</button>
           </Link>
 
-          <button className="bg-amber-400 py-1 px-3 rounded font-bold" onClick={handleLogOut}>
+
+          <button className="bg-amber-400 py-1 px-3 rounded font-bold hover:bg-white hover:text-amber-400" onClick={handleLogOut}>
             Sign out
           </button>
         </div>
@@ -80,3 +94,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

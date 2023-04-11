@@ -10,13 +10,21 @@ import { useParams } from "react-router-dom";
 import { fetchCartoons } from "../../features/cartoons/cartoonsThunk";
 import { fetchSeries } from "../../features/series/seriesThunk";
 import { fetchNetflixSeries } from "../../features/netflixSeries/netflixSeriesThunk";
+import { fetchAllMoviesByFilters } from "../../features/findMovieByFilters/findMovieByFiltersThunk";
 
-const Pagination = ({ total_pages }) => {
+const Pagination = ({ total_pages, genre, mediaType, country, safeMode}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const value = useParams().value
 
   // console.log("param", value)
+
+  const handleClickToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
 
   const handleClick = (page = 1) => {
     setCurrentPage(page);
@@ -28,6 +36,8 @@ const Pagination = ({ total_pages }) => {
     dispatch(fetchCartoons(page))
     dispatch(fetchSeries(page))
     dispatch(fetchNetflixSeries(page))
+    dispatch(fetchAllMoviesByFilters(mediaType, page, genre, country, safeMode))
+    handleClickToTop()
   };
 
   const renderPageNumbers = () => {

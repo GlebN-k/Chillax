@@ -14,7 +14,9 @@ import { getMoviesFromFirestore } from "../features/watchLaterMovies/watchLaterS
 import { fetchCartoons } from "../features/cartoons/cartoonsThunk";
 import { fetchSeries } from "../features/series/seriesThunk";
 import { fetchNetflixSeries } from "../features/netflixSeries/netflixSeriesThunk";
+import { fetchAllMovieGenres } from "../features/allMovieGenres/allMovieGenresThunk";
 import { getChosenFilmSuccess } from "../features/chosenFilm/ChosenFilmSlice";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -56,7 +58,15 @@ const Home = () => {
     dispatch(fetchCartoons());
     dispatch(fetchSeries());
     dispatch(fetchNetflixSeries())
+    dispatch(fetchAllMovieGenres())
   }, [dispatch]);
+
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior:"smooth"
+    })
+  }
 
   
   function getSavedShows(email) {
@@ -97,6 +107,7 @@ const Home = () => {
       <Row title="Trending" movies={trendingMovies} />
       <Row title="Cartoons" movies={cartoons} />
       <Row title="Series" movies={series} />
+      <div className="text-white px-5 text-lg">Haven`t found something interesting? Try our <Link to="/filters"><span className="text-blue-500" onClick={handleClick}>filters</span></Link></div>
     </>
   );
 };

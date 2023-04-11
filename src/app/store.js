@@ -12,6 +12,10 @@ import cartoonsSlice from "../features/cartoons/cartoonsSlice";
 import seriesSlice from "../features/series/seriesSlice";
 import netflixSeriesSlice from "../features/netflixSeries/netflixSeriesSlice";
 import ChosenFilmSlice from "../features/chosenFilm/ChosenFilmSlice";
+// import productionCompanySlice from "../features/productionCompanies/productionCompanySlice";
+import allMovieGenresSlice from "../features/allMovieGenres/allMovieGenresSlice";
+import findMovieByFiltersSlice from "../features/findMovieByFilters/findMovieByFiltersSlice";
+import allCountriesSlice from "../features/allCountries/allCountriesSlice";
 
 export const store = configureStore({
     reducer:{
@@ -28,5 +32,8 @@ export const store = configureStore({
         seriesMovies: seriesSlice,
         netflixSeriesMovies: netflixSeriesSlice,
         chosenFilm: ChosenFilmSlice,
+        allMovieGenres: allMovieGenresSlice,
+        findMovieByFilters: findMovieByFiltersSlice,
+        allCountries: allCountriesSlice,
     }
 })

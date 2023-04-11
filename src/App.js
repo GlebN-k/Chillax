@@ -12,6 +12,7 @@ import ChosenMovie from "./pages/ChosenMovie";
 import Footer from "./UI/Organisms/Footer";
 import MoviesPage from "./pages/MoviesPage";
 import SearchResults from "./pages/SearchResults";
+import FiltersPage from "./pages/FiltersPage";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/searchResults/:value" element={<SearchResults />}/>
+          <Route path="filters" element={<FiltersPage />} />
 
           <Route
             path="/account"

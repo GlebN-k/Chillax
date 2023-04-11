@@ -24,6 +24,7 @@ const InputSearch = ({ onClick }) => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       navigate(`/searchResults/${value}`);
+      onClick()
     }
   };
 

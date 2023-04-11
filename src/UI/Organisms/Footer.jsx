@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="text-center">
-          Copyrights © 2023  <br></br> Chillax Group | Made without tears
+          Copyrights © 2023  <br></br> Chillax App | Made with React, Redux, Tailwind, Firebase
         </div>
       </div>
     </footer>

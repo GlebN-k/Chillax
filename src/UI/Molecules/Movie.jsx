@@ -79,8 +79,6 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
   const deleteMovieFromWatchLater = () => {
     dispatch(deleteMovie({ id: movie.id }));
     setWatchLater(!watchLater);
-
-    console.log("delete button pressed");
   };
 
   const addFavMovie = () => {
@@ -104,7 +102,7 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
     <>
       <div
         onClick={onClick}
-        className="text-white w-[220px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
+        className="text-white w-[300px] sm:w-[250px] md:w-[300px] lg:w-[280px] inline-block cursor-pointer relative p-2"
       >
         {movie?.backdrop_path ? (
           <img

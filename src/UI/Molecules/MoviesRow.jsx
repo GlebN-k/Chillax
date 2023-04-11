@@ -13,6 +13,18 @@ const MoviesRow = ({ movies }) => {
     (item) => item.id
   );
 
+  const handleClickToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior:"smooth"
+    });
+  };
+
+  const handleClick = (movie) => {
+    handleClickToTop()
+    dispatch(getChosenFilmSuccess(movie))
+  }
+
   return (
     <>
       <div className="flex flex-col">
@@ -35,7 +47,7 @@ const MoviesRow = ({ movies }) => {
                   favourite={like}
                   savedMovie={saved}
                   key={`${movie?.id}`}
-                  onClick={() => dispatch(getChosenFilmSuccess(movie))}
+                  onClick={() => handleClick(movie)}
                 />
               </Link>
             );
