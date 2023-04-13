@@ -9,6 +9,13 @@ const Account = () => {
   const movies = useSelector((state) => state.watchLater);
   const favouriteMovies = useSelector((state) => state.favouriteMovies);
 
+  const handleClick = () => {
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    })
+  }
+
   return (
     <div>
     <div className="absolute -z-10 right-0">
@@ -21,7 +28,7 @@ const Account = () => {
         <div className="flex flex-col gap-3">
           {movies.length ? (
             movies.map((item, index) => (
-              <AccountMovie section="saved" movie={item} key={index} />
+              <AccountMovie section="saved" movie={item} key={index} onClick={handleClick} />
             ))
           ) : (
             <p className="text-white">No movies here yet...</p>
