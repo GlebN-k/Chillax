@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 // import { GiHamburgerMenu } from "react-icons/gi";
@@ -31,17 +31,6 @@ const Navbar = () => {
     setLoupe(false);
   };
 
-  // useEffect(() => {
-  //   const handleClick = (e) => {
-  //     console.log("e", e);
-  //     if(e.target === "path") {
-  //       alert("yes")
-  //     }
-  //     // setLoupe(false)
-  //   }
-  //   document.addEventListener("click", (e) => handleClick(e))
-  // }, [])
-
   return (
     <div className="w-full absolute z-30 text-white flex p-4 justify-between items-center">
       <div className="flex flex-col md:flex-row gap-3">
@@ -67,7 +56,7 @@ const Navbar = () => {
       {user?.email ? (
         <div>
           <Link to="/account">
-            <button className="mr-4 font-bold py-1 px-3 bg-black rounded bg-opacity-20 hover:bg-white hover:text-black">Account</button>
+            <button className="mr-4 font-bold py-1 px-3 bg-black rounded bg-opacity-20 hover:bg-white hover:text-black">My Movies</button>
           </Link>
 
 

@@ -18,7 +18,6 @@ import { fetchAllMovieGenres } from "../features/allMovieGenres/allMovieGenresTh
 import { getChosenFilmSuccess } from "../features/chosenFilm/ChosenFilmSlice";
 import { Link } from "react-router-dom";
 
-
 const Home = () => {
   const dispatch = useDispatch();
   const myMovies = useSelector((state) => state.favouriteMovies);
@@ -27,14 +26,28 @@ const Home = () => {
   const popularMovies = useSelector((state) => state.popularMovies.movies);
   const upComingMovies = useSelector((state) => state.upComingMovies.movies);
   const trendingMovies = useSelector((state) => state.trendingMovies.movies);
-  const cartoons = useSelector(state => state.cartoonsMovies.cartoons)
-  const series = useSelector(state => state.seriesMovies.movies)
-  const netflixSeries = useSelector(state => state.netflixSeriesMovies.movies)
+  const cartoons = useSelector((state) => state.cartoonsMovies.cartoons);
+  const series = useSelector((state) => state.seriesMovies.movies);
+  const netflixSeries = useSelector(
+    (state) => state.netflixSeriesMovies.movies
+  );
 
   const unitedMoviesArr = useMemo(() => {
-    return topMovies.concat(popularMovies, upComingMovies, trendingMovies, series, netflixSeries);
-  }, [topMovies, popularMovies, upComingMovies, trendingMovies, series, netflixSeries]);
-
+    return topMovies.concat(
+      popularMovies,
+      upComingMovies,
+      trendingMovies,
+      series,
+      netflixSeries
+    );
+  }, [
+    topMovies,
+    popularMovies,
+    upComingMovies,
+    trendingMovies,
+    series,
+    netflixSeries,
+  ]);
 
   function getWatchLaterMoviesFirestore() {
     return new Promise((resolve, reject) => {
@@ -57,18 +70,17 @@ const Home = () => {
     dispatch(fetchTrendingMovies());
     dispatch(fetchCartoons());
     dispatch(fetchSeries());
-    dispatch(fetchNetflixSeries())
-    dispatch(fetchAllMovieGenres())
+    dispatch(fetchNetflixSeries());
+    dispatch(fetchAllMovieGenres());
   }, [dispatch]);
 
   const handleClick = () => {
     window.scrollTo({
       top: 0,
-      behavior:"smooth"
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
-  
   function getSavedShows(email) {
     return new Promise((resolve, reject) => {
       const docRef = doc(db, "users", email);
@@ -83,8 +95,9 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const movie = popularMovies[Math.floor(Math.random() * popularMovies.length)]
-    dispatch(getChosenFilmSuccess(movie))
+    const movie =
+      popularMovies[Math.floor(Math.random() * popularMovies.length)];
+    dispatch(getChosenFilmSuccess(movie));
   }, [dispatch, popularMovies]);
 
   useEffect(() => {
@@ -100,17 +113,23 @@ const Home = () => {
   return (
     <>
       <Main unitedMoviesArr={unitedMoviesArr} />
-      <Row title="Up coming" movies={upComingMovies} />
-      <Row title="Top Rated" movies={topMovies} />
-      <Row title="Netflix series" movies={netflixSeries} />
-      <Row title="Popular" movies={popularMovies} />
-      <Row title="Trending" movies={trendingMovies} />
-      <Row title="Cartoons" movies={cartoons} />
-      <Row title="Series" movies={series} />
-      <div className="text-white px-5 text-lg">Haven`t found something interesting? Try our <Link to="/filters"><span className="text-blue-500" onClick={handleClick}>filters</span></Link></div>
+      <Row title="Up coming" movies={upComingMovies} rowId="1" />
+      <Row title="Top Rated" movies={topMovies} rowId="2" />
+      <Row title="Netflix series" movies={netflixSeries} rowId="3" />
+      <Row title="Popular" movies={popularMovies} rowId="4" />
+      <Row title="Trending" movies={trendingMovies} rowId="5" />
+      <Row title="Cartoons" movies={cartoons} rowId="6" />
+      <Row title="Series" movies={series} rowId="7" />
+      <div className="text-white px-5 text-2xl tracking-wider">
+        Haven`t found something interesting? Try our{" "}
+        <Link to="/filters">
+          <span className="text-blue-500" onClick={handleClick}>
+            filters
+          </span>
+        </Link>
+      </div>
     </>
   );
 };
 
 export default Home;
-

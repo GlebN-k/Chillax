@@ -3,16 +3,16 @@ import { useSelector } from "react-redux";
 
 import StarRating from "../UI/Atoms/StarRating";
 import AccountMovie from "../UI/Molecules/AccountMovie";
-import LogBackground from "./LogBackground";
+// import LogBackground from "./LogBackground";
 
 const Account = () => {
   const movies = useSelector((state) => state.watchLater);
   const favouriteMovies = useSelector((state) => state.favouriteMovies);
 
   return (
-    <>
+    <div>
     <div className="absolute -z-10 right-0">
-      <LogBackground />
+      {/* <LogBackground /> */}
     </div>
       <div className="max-w-screen-lg m-auto px-2">
         <h2 className="text-white text-2xl md:text-4xl pt-24 pb-3">
@@ -42,7 +42,7 @@ const Account = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

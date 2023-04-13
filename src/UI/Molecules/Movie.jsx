@@ -3,7 +3,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { UserAuth } from "../../context/AuthContext";
 import { db } from "../../firebase";
@@ -12,6 +12,7 @@ import {
   deleteMovie,
 } from "../../features/watchLaterMovies/watchLaterSlice";
 import { addFavouriteMovie } from "../../features/favouriteMovies/favouriteMovies";
+import { deleteFavouriteMovie } from "../../features/favouriteMovies/favouriteMovies";
 
 const Movie = ({ movie, onClick, favourite, savedMovie }) => {
   const [like, setLike] = useState(favourite);
@@ -20,6 +21,7 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
   const { user } = UserAuth();
   const dispatch = useDispatch();
   const movieId = doc(db, "users", `${user?.email}`);
+  const favouriteMovies = useSelector((state) => state.favouriteMovies);
 
   const saveShow = async () => {
     if (user?.email) {
@@ -57,7 +59,7 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
 
   const watchMovieLater = (e) => {
     // e.preventDefault()
-    // e.stopImmediatePropagation()
+    e.stopPropagation();
     if (user?.email) {
       saveWatchLaterFirebase();
       console.log("watch movie later");
@@ -76,7 +78,8 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
     }
   };
 
-  const deleteMovieFromWatchLater = () => {
+  const deleteMovieFromWatchLater = (e) => {
+    e.stopPropagation();
     dispatch(deleteMovie({ id: movie.id }));
     setWatchLater(!watchLater);
   };
@@ -93,24 +96,44 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
     );
   };
 
-  const addFavouriteMovieStore = () => {
+  const addFavouriteMovieStore = (e) => {
+    e.stopPropagation();
     saveShow();
     addFavMovie();
+  };
+
+  
+
+  const deleteFavouriteMovieFirestore = async (e) => {
+    e.stopPropagation()
+    const movieRef = doc(db, "users", `${user?.email}`);
+    setLike(false);
+    dispatch(deleteFavouriteMovie({ id: movie.id }));
+    try {
+      const results = favouriteMovies.filter((item) => item.id !== movie.id);
+      await updateDoc(movieRef, {
+        savedShows: results,
+      });
+    } catch (error) {
+      alert("error", error);
+    }
   };
 
   return (
     <>
       <div
         onClick={onClick}
-        className="text-white w-[300px] sm:w-[250px] md:w-[300px] lg:w-[280px] inline-block cursor-pointer relative p-2"
+        className="text-white w-[300px] sm:w-[250px] md:w-[300px] lg:w-[280px] inline-block cursor-pointer relative p-2 rounded"
       >
         {movie?.backdrop_path ? (
           <img
             src={`https://image.tmdb.org/t/p/w500${movie?.backdrop_path}`}
             alt={movie?.title || movie?.name}
+            className="rounded"
           />
         ) : (
-          <img className="h-[148px] justify-center m-auto"
+          <img
+            className="h-[148px] justify-center m-auto rounded"
             src={`https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png`}
             alt={movie?.title || movie?.name}
           />
@@ -119,13 +142,12 @@ const Movie = ({ movie, onClick, favourite, savedMovie }) => {
           {movie?.title || movie?.name}
           <div className="absolute top-[10px] left-[10px] flex gap-2">
             {like ? (
-              <AiFillStar />
+              <AiFillStar onClick={(e)=> deleteFavouriteMovieFirestore(e)}/>
             ) : (
-              <AiOutlineStar onClick={() => addFavouriteMovieStore()} />
-              // <AiOutlineStar onClick={() => saveShow()} />
+              <AiOutlineStar onClick={(e) => addFavouriteMovieStore(e)} />
             )}
             {watchLater ? (
-              <TiTick onClick={() => deleteMovieFromWatchLater()} />
+              <TiTick onClick={(e) => deleteMovieFromWatchLater(e)} />
             ) : (
               <MdOutlineWatchLater onClick={(e) => watchMovieLater(e)} />
             )}

@@ -23,7 +23,7 @@ import MovieGenre from "../UI/Atoms/MovieGenre";
 import { fetchChosenFilm } from "../features/chosenFilm/chosenFilmThunk";
 import { deleteFavouriteMovie } from "../features/favouriteMovies/favouriteMovies";
 import { key } from "../requests";
- 
+
 const ChosenMovie = () => {
   const [like, setLike] = useState(false);
   const [watchLater, setWatchLater] = useState(false);
@@ -104,7 +104,7 @@ const ChosenMovie = () => {
         }),
       });
     } else {
-      alert("you need to log in first");
+      alert("You need to log in first");
     }
   };
 
@@ -243,7 +243,9 @@ const ChosenMovie = () => {
                   filmInfo?.first_air_date?.slice(0, 4)}
               </div>
             </div>
-            <p className="w-full text-justify indent-4 text-gray-200">{filmInfo?.overview}</p>
+            <p className="w-full text-justify indent-4 text-gray-200">
+              {filmInfo?.overview}
+            </p>
             <div className="flex flex-wrap justify-center gap-3 items-start mt-8 w-full ">
               {movieCredits?.map((actor, index) => {
                 if (

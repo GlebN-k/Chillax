@@ -45,7 +45,7 @@ const FiltersPage = () => {
   console.log("object", movieResultsByFilters);
   console.log("genre", genre);
   console.log("allCountries", allCountries);
-  console.log("safeMode", safeMode)
+  console.log("safeMode", safeMode);
 
   useEffect(() => {
     dispatch(fetchAllMoviesByFilters(mediaType, 1, genre, country, safeMode));
@@ -59,59 +59,65 @@ const FiltersPage = () => {
   return (
     <div className="text-white">
       <div className="relative h-[100px] w-full z-10"></div>
-      <div className="text-white">SEARCH MOVIE</div>
-      <div className="flex flex-wrap  gap-3">
-        {/* search by media type */}
-        <select
-          className="bg-black rounded-full text-center tracking-wider"
-          onChange={(e) => handleMediaType(e)}
-        >
-          <option value="movie">Movies</option>
-          <option value="tv">Series</option>
-          <option value="cartoons">Cartoons</option>
-          <option value="tvShows">TV Shows</option>
-        </select>
+      <div className="w-[70%] mx-auto text-center">
+        <div className="text-white text-2xl tracking-wider mb-5">SEARCH MOVIE</div>
+        <div className="flex flex-wrap  gap-3 mb-5">
+          {/* search by media type */}
+          <select
+            className="bg-black rounded-full text-center tracking-wider"
+            onChange={(e) => handleMediaType(e)}
+          >
+            <option value="movie">Movies</option>
+            <option value="tv">Series</option>
+            <option value="cartoons">Cartoons</option>
+            <option value="tvShows">TV Shows</option>
+          </select>
 
-        {/* search by genres */}
-        <select
-          className="bg-black rounded-full text-center tracking-wider"
-          id="genres"
-          disabled={disabled}
-          onChange={(e) => setGenre(e.target.value)}
-        >
-          <option value="">all</option>
-          {allMovieGenres?.map((genre) => (
-            <option value={genre?.id} key={genre?.id}>{genre?.name}</option>
-          ))}
-        </select>
+          {/* search by genres */}
+          <select
+            className="bg-black rounded-full text-center tracking-wider"
+            id="genres"
+            disabled={disabled}
+            onChange={(e) => setGenre(e.target.value)}
+          >
+            <option value="">all genres</option>
+            {allMovieGenres?.map((genre) => (
+              <option value={genre?.id} key={genre?.id}>
+                {genre?.name}
+              </option>
+            ))}
+          </select>
 
-        {/* search by countries */}
-        <select
-          className="bg-black rounded-full text-center tracking-wider "
-          onChange={(e) => setCountry(e.target.value)}
-        >
-          <option value="">all</option>
-          {allCountries.map((country) => (
-            <option value={country.iso_3166_1} key={country.iso_3166_1}>{country.english_name}</option>
-          ))}
-        </select>
+          {/* search by countries */}
+          <select
+            className="bg-black rounded-full text-center tracking-wider lg-max:w-full"
+            onChange={(e) => setCountry(e.target.value)}
+          >
+            <option value="">all countries</option>
+            {allCountries.map((country) => (
+              <option value={country.iso_3166_1} key={country.iso_3166_1}>
+                {country.english_name}
+              </option>
+            ))}
+          </select>
 
-        {/* {safeMode
-          ? (btnStyles =
-              "text-white border-gray-500 px-4 hover:bg-white hover:text-black  border-[1px]  rounded-full")
-          : (btnStyles =
-              "text-white border-gray-500 px-4 hover:bg-white hover:text-black  border-[1px]  rounded-full")} */}
-        <button className="text-white border-gray-500 px-4 py-2 hover:bg-white hover:text-black  border-[1px]  rounded-full"
-         onClick={() => setSafeMode(!safeMode)} 
-        style={safeMode ? {backgroundColor:"black", color:'white'} : {backgroundColor:"white", color:'black'}}>
-          Safe for children
-        </button>
+          <button
+            className="text-white border-gray-500 px-4 py-2 hover:bg-white hover:text-black  border-[1px]  rounded-full"
+            onClick={() => setSafeMode(!safeMode)}
+            style={
+              safeMode
+                ? { backgroundColor: "black", color: "white" }
+                : { backgroundColor: "white", color: "black" }
+            }
+          >
+            Safe for children
+          </button>
+        </div>
       </div>
 
       {/* movies */}
       <div>
         <MoviesRow movies={movieResultsByFilters.results} />
-        {/* <MoviesRow title={name} movies={movies?.movies || movies?.cartoons} /> */}
         <Pagination
           total_pages={movieResultsByFilters?.total_pages}
           genre={genre}
@@ -119,7 +125,6 @@ const FiltersPage = () => {
           country={country}
           safeMode={safeMode}
         />
-        {/* <Pagination total_pages={movies?.total_pages} /> */}
       </div>
     </div>
   );
